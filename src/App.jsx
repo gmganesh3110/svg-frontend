@@ -1,14 +1,21 @@
-import { useState } from 'react'
-
+import React from "react";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import routes from "./routes/routes";
 function App() {
-
   return (
-    <>
-      <div className='h-full w-full bg-red-400'>
-        Hello World
-        </div>
-    </>
-  )
+    <Router>
+      <Routes>
+        {routes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
