@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/authStore/authActions";
+import { useNavigate } from "react-router";
 
 interface LoginDto {
   email: string;
@@ -10,6 +11,7 @@ interface LoginDto {
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate=useNavigate()
   const dispatch=useDispatch()
   const handleLogin = async(e) => {
     e.preventDefault()
@@ -18,7 +20,11 @@ const Login: React.FC = () => {
       password,
     };
     const res:any=await axios.post('http://localhost:3000/auth/login',obj);
+    localStorage.setItem('user',res)
+    localStorage.setItem('token',res.token)
     dispatch(loginSuccess(res,res.token))
+    navigate('/')
+    
     
     
   };
